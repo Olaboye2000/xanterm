@@ -33,14 +33,25 @@ export function PNodeCard({ pnode, isFavorite, onToggleFavorite }: PNodeCardProp
         setIsWatched(!isWatched);
     };
 
-    const getStatusVariant = (status: string): 'success' | 'danger' | 'warning' => {
+    const getStatusVariant = (status: string): 'destructive' | 'secondary' | 'outline' => {
         switch (status) {
             case 'online':
-                return 'success';
+                return 'secondary';
             case 'offline':
-                return 'danger';
+                return 'destructive';
             default:
-                return 'warning';
+                return 'outline';
+        }
+    };
+
+    const getStatusClassName = (status: string): string => {
+        switch (status) {
+            case 'online':
+                return 'bg-green-500/10 text-green-600 border-green-500/30 dark:bg-green-500/20 dark:text-green-400';
+            case 'offline':
+                return '';
+            default:
+                return 'bg-yellow-500/10 text-yellow-600 border-yellow-500/30 dark:bg-yellow-500/20 dark:text-yellow-400';
         }
     };
 
@@ -90,7 +101,9 @@ export function PNodeCard({ pnode, isFavorite, onToggleFavorite }: PNodeCardProp
                     </div>
                 </div>
                 <div className="flex items-center space-x-2 mt-2">
-                    <Badge variant={getStatusVariant(pnode.status)}>{pnode.status}</Badge>
+                    <Badge variant={getStatusVariant(pnode.status)} className={getStatusClassName(pnode.status)}>
+                        {pnode.status}
+                    </Badge>
                     <span className="text-xs text-muted-foreground">{pnode.location || 'Unknown'}</span>
                 </div>
             </CardHeader>

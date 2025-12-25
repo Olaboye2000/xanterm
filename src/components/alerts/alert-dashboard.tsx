@@ -100,7 +100,7 @@ export function AlertDashboard({ compact = false, className = '' }: AlertDashboa
               Alerts
             </CardTitle>
             {stats && stats.active > 0 && (
-              <Badge variant="danger" className="text-xs">
+              <Badge variant="destructive" className="text-xs">
                 {stats.active}
               </Badge>
             )}
@@ -213,7 +213,7 @@ export function AlertDashboard({ compact = false, className = '' }: AlertDashboa
               <TabsTrigger value="active" className="flex items-center gap-2">
                 Active Alerts
                 {activeAlerts.length > 0 && (
-                  <Badge variant="danger" className="text-xs ml-1">
+                  <Badge variant="destructive" className="text-xs ml-1">
                     {activeAlerts.length}
                   </Badge>
                 )}

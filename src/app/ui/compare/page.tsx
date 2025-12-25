@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Header from '@/components/ui-landing/Header';
 import Footer from '@/components/ui-landing/Footer';
 import { GitCompare, Plus, Search, X, ExternalLink } from 'lucide-react';
@@ -12,7 +12,7 @@ import { formatBytes } from '@/lib/format';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-export default function ComparePage() {
+function ComparePageContent() {
   const { data: pnodes, isLoading } = usePNodes();
   const searchParams = useSearchParams();
   const [compareList, setCompareList] = useState<string[]>([]);
@@ -303,5 +303,21 @@ export default function ComparePage() {
       </main>
       <Footer />
     </div>
+  );
+}
+
+export default function ComparePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex flex-col bg-background text-foreground">
+        <Header />
+        <main className="pt-24 pb-12 px-6 md:px-12 flex-1 flex items-center justify-center">
+          <div className="text-muted-foreground">Loading...</div>
+        </main>
+        <Footer />
+      </div>
+    }>
+      <ComparePageContent />
+    </Suspense>
   );
 }

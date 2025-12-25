@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const Pricing = () => {
   const [isAnnual, setIsAnnual] = useState(false);
@@ -168,7 +168,7 @@ const Pricing = () => {
               </div>
               
               <div className="mt-6">
-                <Link to={plan.buttonText === "Contact Sales" ? "/contact-sales" : "/early-access"} className="block">
+                <Link href={plan.buttonText === "Contact Sales" ? "/ui" : "/ui"} className="block">
                   <Button 
                     className={
                       plan.buttonVariant === "default" 
@@ -186,7 +186,7 @@ const Pricing = () => {
         </div>
         
         <div className="text-center text-muted-foreground">
-          Have questions? <Link to="/contact-sales" className="text-primary hover:underline">Contact our sales team</Link>
+          Have questions? <Link href="/ui/docs" className="text-primary hover:underline">Contact our sales team</Link>
         </div>
       </div>
     </section>

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ArrowRight, Sparkles, Zap, Rocket, Star } from 'lucide-react';
 
 // Sliding text animation component
-const SlidingText = ({ children, delay = 0, trigger = false, reset = false }) => {
+const SlidingText = ({ children, delay = 0, trigger = false, reset = false }: { children: React.ReactNode; delay?: number; trigger?: boolean; reset?: boolean }) => {
   const [isVisible, setIsVisible] = useState(false);
   
   useEffect(() => {
@@ -29,11 +29,11 @@ const SlidingText = ({ children, delay = 0, trigger = false, reset = false }) =>
 };
 
 // Magnetic button effect
-const MagneticButton = ({ children, ...props }) => {
+const MagneticButton = ({ children, ...props }: { children: React.ReactElement; [key: string]: any }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
   
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
@@ -61,9 +61,9 @@ const MagneticButton = ({ children, ...props }) => {
       }}
     >
       {React.cloneElement(children, {
-        className: `${children.props.className} ${isHovered ? 'scale-110 shadow-2xl' : ''}`,
+        className: `${(children.props as any).className || ''} ${isHovered ? 'scale-110 shadow-2xl' : ''}`,
         ...props
-      })}
+      } as any)}
     </div>
   );
 };
@@ -127,7 +127,7 @@ const CallToAction = () => {
   }, []);
   
   // Mouse tracking for parallax effects
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width;
     const y = (e.clientY - rect.top) / rect.height;
@@ -217,7 +217,7 @@ const CallToAction = () => {
           <SlidingText delay={1600} trigger={isVisible} reset={animationReset}>
             <div className="pt-6">
               <MagneticButton>
-                <Link to="/book-demo">
+                <Link href="/ui">
                   <Button 
                     size="lg" 
                     className="relative bg-primary text-primary-foreground hover:bg-primary/90 text-lg h-14 px-10 rounded-xl transition-all duration-300 hover:shadow-2xl hover:shadow-primary/40 group overflow-hidden"

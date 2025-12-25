@@ -292,9 +292,9 @@ export function AdvancedAnalyticsDashboard({ pnodes, className = '' }: AdvancedA
                         <Badge
                           variant={
                             anomaly.severity === 'critical'
-                              ? 'danger'
+                              ? 'destructive'
                               : anomaly.severity === 'high'
-                                ? 'warning'
+                                ? 'outline'
                                 : 'secondary'
                           }
                         >
@@ -392,9 +392,9 @@ export function AdvancedAnalyticsDashboard({ pnodes, className = '' }: AdvancedA
                         <Badge
                           variant={
                             prediction.impact === 'high'
-                              ? 'danger'
+                              ? 'destructive'
                               : prediction.impact === 'medium'
-                                ? 'warning'
+                                ? 'outline'
                                 : 'secondary'
                           }
                         >

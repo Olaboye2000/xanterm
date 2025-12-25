@@ -11,23 +11,40 @@ import { addToWatchlist, removeFromWatchlist, getWatchlist } from '@/lib/watchli
 import Link from 'next/link';
 import type { PNode } from '@/types/pnode';
 
-function getStatusBadgeVariant(status: string): 'success' | 'danger' | 'warning' {
+function getStatusBadgeVariant(status: string): 'destructive' | 'secondary' | 'outline' {
     switch (status) {
         case 'online':
-            return 'success';
+            return 'secondary';
         case 'offline':
-            return 'danger';
+            return 'destructive';
         case 'delinquent':
-            return 'warning';
+            return 'outline';
         default:
-            return 'warning';
+            return 'outline';
     }
 }
 
-function getPerformanceBadgeVariant(score: number): 'success' | 'warning' | 'danger' {
-    if (score >= 80) return 'success';
-    if (score >= 60) return 'warning';
-    return 'danger';
+function getStatusBadgeClassName(status: string): string {
+    switch (status) {
+        case 'online':
+            return 'bg-green-500/10 text-green-600 border-green-500/30 dark:bg-green-500/20 dark:text-green-400';
+        case 'offline':
+            return '';
+        default:
+            return 'bg-yellow-500/10 text-yellow-600 border-yellow-500/30 dark:bg-yellow-500/20 dark:text-yellow-400';
+    }
+}
+
+function getPerformanceBadgeVariant(score: number): 'destructive' | 'secondary' | 'outline' {
+    if (score >= 80) return 'secondary';
+    if (score >= 60) return 'outline';
+    return 'destructive';
+}
+
+function getPerformanceBadgeClassName(score: number): string {
+    if (score >= 80) return 'bg-green-500/10 text-green-600 border-green-500/30 dark:bg-green-500/20 dark:text-green-400';
+    if (score >= 60) return 'bg-yellow-500/10 text-yellow-600 border-yellow-500/30 dark:bg-yellow-500/20 dark:text-yellow-400';
+    return '';
 }
 
 interface PNodeTableProps {
@@ -122,7 +139,7 @@ export function PNodeTable({ pnodes, isLoading }: PNodeTableProps) {
                                 </Link>
                             </TableCell>
                             <TableCell>
-                                <Badge variant={getStatusBadgeVariant(pnode.status)}>
+                                <Badge variant={getStatusBadgeVariant(pnode.status)} className={getStatusBadgeClassName(pnode.status)}>
                                     {pnode.status}
                                 </Badge>
                             </TableCell>
@@ -131,7 +148,7 @@ export function PNodeTable({ pnodes, isLoading }: PNodeTableProps) {
                             <TableCell>
                                 <div className="flex items-center space-x-2">
                                     <span>{pnode.performanceScore}/100</span>
-                                    <Badge variant={getPerformanceBadgeVariant(pnode.performanceScore)}>
+                                    <Badge variant={getPerformanceBadgeVariant(pnode.performanceScore)} className={getPerformanceBadgeClassName(pnode.performanceScore)}>
                                         {pnode.performanceScore >= 80
                                             ? 'High'
                                             : pnode.performanceScore >= 60
