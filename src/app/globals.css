@@ -1,0 +1,843 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* Terminal Theme - XanTerm */
+
+@theme {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --font-mono: 'JetBrains Mono', monospace;
+    --radius-sm: 0;
+    --radius-md: 0;
+    --radius-lg: 0;
+}
+
+/* Terminal Theme - Charcoal/Gray styling */
+:root {
+    --background: #141414;
+    --foreground: #f2f2f2;
+    --card: #1e1e1e;
+    --card-foreground: #f2f2f2;
+    --popover: #1e1e1e;
+    --popover-foreground: #f2f2f2;
+    --primary: #d9d9d9;
+    --primary-foreground: #141414;
+    --secondary: #2e2e2e;
+    --secondary-foreground: #f2f2f2;
+    --muted: #383838;
+    --muted-foreground: #b3b3b3;
+    --accent: #2e2e2e;
+    --accent-foreground: #f2f2f2;
+    --destructive: #ef4444;
+    --destructive-foreground: #141414;
+    --border: #383838;
+    --input: #2e2e2e;
+    --ring: #d9d9d9;
+    --radius: 0;
+
+    /* Terminal specific colors - Gray palette */
+    --terminal-primary: #d9d9d9;
+    --terminal-dim: #b3b3b3;
+    --terminal-dark: #383838;
+    --terminal-accent: #a0a0a0;
+    --terminal-amber: #ffb000;
+    --terminal-red: #ef4444;
+    --terminal-yellow: #fbbf24;
+    --terminal-black: #141414;
+    --terminal-gray: #4a4a4a;
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+        font-family: 'JetBrains Mono', monospace;
+        background-color: #141414;
+        color: #f2f2f2;
+        min-height: 100vh;
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #141414;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #383838;
+        border: 1px solid #4a4a4a;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #4a4a4a;
+    }
+
+    /* Selection styling */
+    ::selection {
+        background: #d9d9d9;
+        color: #141414;
+    }
+}
+
+/* Terminal Animations */
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+}
+
+@keyframes glow {
+    0%, 100% { text-shadow: 0 0 5px rgba(217, 217, 217, 0.5), 0 0 10px rgba(217, 217, 217, 0.3); }
+    50% { text-shadow: 0 0 10px rgba(217, 217, 217, 0.6), 0 0 20px rgba(217, 217, 217, 0.4), 0 0 30px rgba(217, 217, 217, 0.2); }
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    92% { opacity: 1; }
+    93% { opacity: 0.8; }
+    94% { opacity: 1; }
+    97% { opacity: 0.9; }
+    98% { opacity: 1; }
+}
+
+/* Cursor blink */
+.cursor-blink {
+    animation: blink 1s step-end infinite;
+}
+
+/* Text glow effect */
+.text-glow {
+    text-shadow: 0 0 5px rgba(217, 217, 217, 0.5), 0 0 10px rgba(217, 217, 217, 0.3);
+}
+
+.text-glow-strong {
+    animation: glow 2s ease-in-out infinite;
+}
+
+/* Scanline overlay */
+.scanlines::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* CRT effect (optional) */
+.crt::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+    pointer-events: none;
+    z-index: 9998;
+}
+
+/* Flicker effect */
+.flicker {
+    animation: flicker 5s infinite;
+}
+
+/* Terminal box borders using ASCII-like styling */
+.terminal-box {
+    border: 1px solid #383838;
+    background: #1e1e1e;
+    position: relative;
+}
+
+.terminal-box::before {
+    content: attr(data-title);
+    position: absolute;
+    top: -0.75rem;
+    left: 1rem;
+    background: #141414;
+    padding: 0 0.5rem;
+    color: #d9d9d9;
+    font-size: 0.875rem;
+}
+
+/* ASCII Progress bar */
+.ascii-progress {
+    font-family: 'JetBrains Mono', monospace;
+    color: #d9d9d9;
+}
+
+/* Status indicators */
+.status-online {
+    color: #22c55e;
+}
+
+.status-offline {
+    color: #ef4444;
+}
+
+.status-warning {
+    color: #fbbf24;
+}
+
+/* Command input styling */
+.command-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #f2f2f2;
+    font-family: 'JetBrains Mono', monospace;
+    caret-color: #d9d9d9;
+}
+
+.command-input::placeholder {
+    color: #4a4a4a;
+}
+
+/* Table styling */
+.terminal-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.terminal-table th,
+.terminal-table td {
+    text-align: left;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #383838;
+}
+
+.terminal-table th {
+    color: #d9d9d9;
+    font-weight: 600;
+    border-bottom: 2px solid #d9d9d9;
+}
+
+.terminal-table tr:hover {
+    background: #2e2e2e;
+}
+
+/* Typing effect container */
+.typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 2s steps(40, end);
+}
+
+/* Button styling */
+.terminal-btn {
+    background: transparent;
+    border: 1px solid #d9d9d9;
+    color: #d9d9d9;
+    padding: 0.5rem 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.terminal-btn:hover {
+    background: #d9d9d9;
+    color: #141414;
+}
+
+.terminal-btn:active {
+    transform: scale(0.98);
+}
+
+/* Link styling */
+a {
+    color: #b3b3b3;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #f2f2f2;
+    text-decoration: underline;
+}
+
+/* Badge/Tag styling */
+.terminal-badge {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border: 1px solid currentColor;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+/* Keyboard key styling */
+kbd {
+    display: inline-block;
+    padding: 0.125rem 0.375rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: #d9d9d9;
+    background: #2e2e2e;
+    border: 1px solid #383838;
+    border-bottom-width: 2px;
+}
+
+/* Remove all border radius for terminal feel */
+button, input, select, textarea, [class*="rounded"] {
+    border-radius: 0 !important;
+}
+
+/* Override any shadcn card styling */
+[data-slot="card"] {
+    border-radius: 0;
+    background: #1e1e1e;
+    border-color: #383838;
+}
+
+/* Command palette styles */
+[cmdk-root] {
+    max-width: 640px;
+    width: 100%;
+    background: #1e1e1e;
+    border: 1px solid #d9d9d9;
+}
+
+[cmdk-input] {
+    font-size: 14px;
+    padding: 16px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #f2f2f2;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+[cmdk-item] {
+    padding: 12px 16px;
+    cursor: pointer;
+    border-radius: 0;
+    transition: all 0.15s ease;
+    color: #f2f2f2;
+}
+
+[cmdk-item]:hover {
+    background: #2e2e2e;
+}
+
+[cmdk-item][aria-selected="true"] {
+    background: #d9d9d9;
+    color: #141414;
+}
+
+/* ============================================
+   DASHBOARD/UI MODE STYLES
+   These styles only apply within .dashboard-theme
+   ============================================ */
+
+/* Dashboard Theme - Dark Mode (default) */
+.dashboard-theme {
+    /* Override all terminal colors with gray/charcoal palette */
+    --background: #141414;
+    --foreground: #f2f2f2;
+    --card: #1e1e1e;
+    --card-foreground: #f2f2f2;
+    --popover: #1e1e1e;
+    --popover-foreground: #f2f2f2;
+    --primary: #d9d9d9;
+    --primary-foreground: #262626;
+    --secondary: #2e2e2e;
+    --secondary-foreground: #f2f2f2;
+    --muted: #383838;
+    --muted-foreground: #b3b3b3;
+    --accent: #383838;
+    --accent-foreground: #f2f2f2;
+    --destructive: #ef4444;
+    --destructive-foreground: #fafafa;
+    --border: #383838;
+    --input: #383838;
+    --ring: #d9d9d9;
+    --radius: 0.5rem;
+
+    /* Sidebar specific */
+    --sidebar-background: #1a1a1a;
+    --sidebar-foreground: #f2f2f2;
+    --sidebar-primary: #d9d9d9;
+    --sidebar-primary-foreground: #262626;
+    --sidebar-accent: #2e2e2e;
+    --sidebar-accent-foreground: #f2f2f2;
+    --sidebar-border: #333333;
+    --sidebar-ring: #d9d9d9;
+}
+
+/* Dashboard Theme - Light Mode */
+.dashboard-theme.light-mode {
+    --background: #fafafa;
+    --foreground: #333333;
+    --card: #ffffff;
+    --card-foreground: #333333;
+    --popover: #ffffff;
+    --popover-foreground: #333333;
+    --primary: #404040;
+    --primary-foreground: #fafafa;
+    --secondary: #f0f0f0;
+    --secondary-foreground: #404040;
+    --muted: #e0e0e0;
+    --muted-foreground: #737373;
+    --accent: #f0f0f0;
+    --accent-foreground: #404040;
+    --destructive: #ef4444;
+    --destructive-foreground: #fafafa;
+    --border: #d9d9d9;
+    --input: #e5e5e5;
+    --ring: #404040;
+
+    /* Sidebar specific */
+    --sidebar-background: #fafafa;
+    --sidebar-foreground: #333333;
+    --sidebar-primary: #404040;
+    --sidebar-primary-foreground: #fafafa;
+    --sidebar-accent: #f0f0f0;
+    --sidebar-accent-foreground: #404040;
+    --sidebar-border: #e0e0e0;
+    --sidebar-ring: #404040;
+}
+
+/* Dashboard base styles - force override terminal defaults */
+.dashboard-theme {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    letter-spacing: -0.025em;
+    -webkit-font-smoothing: antialiased;
+    background-color: #141414 !important;
+    color: #f2f2f2 !important;
+    min-height: 100vh;
+}
+
+.dashboard-theme.light-mode {
+    background-color: #fafafa !important;
+    color: #333333 !important;
+}
+
+/* Override terminal styles in dashboard mode */
+.dashboard-theme * {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.dashboard-theme code,
+.dashboard-theme pre,
+.dashboard-theme .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Dashboard removes terminal effects */
+.dashboard-theme .scanlines::before,
+.dashboard-theme .crt::after {
+    display: none;
+}
+
+/* Dashboard specific scrollbar */
+.dashboard-theme ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.dashboard-theme ::-webkit-scrollbar-track {
+    background: var(--background);
+}
+
+.dashboard-theme ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+.dashboard-theme ::-webkit-scrollbar-thumb:hover {
+    background: var(--muted-foreground);
+}
+
+/* Dashboard selection */
+.dashboard-theme ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+}
+
+/* Fix button and input radius in dashboard */
+.dashboard-theme button,
+.dashboard-theme input,
+.dashboard-theme select,
+.dashboard-theme textarea {
+    border-radius: var(--radius) !important;
+}
+
+/* Sidebar background */
+.dashboard-theme [data-sidebar="sidebar"] {
+    background: var(--sidebar-background);
+}
+
+/* Force color overrides for common elements in dashboard - DARK MODE */
+.dashboard-theme .bg-background {
+    background-color: #141414 !important;
+}
+
+.dashboard-theme .text-foreground {
+    color: #f2f2f2 !important;
+}
+
+.dashboard-theme .bg-card {
+    background-color: #1e1e1e !important;
+}
+
+.dashboard-theme .text-card-foreground {
+    color: #f2f2f2 !important;
+}
+
+.dashboard-theme .bg-primary {
+    background-color: #d9d9d9 !important;
+}
+
+.dashboard-theme .text-primary {
+    color: #d9d9d9 !important;
+}
+
+.dashboard-theme .text-primary-foreground {
+    color: #262626 !important;
+}
+
+.dashboard-theme .bg-muted {
+    background-color: #383838 !important;
+}
+
+.dashboard-theme .text-muted-foreground {
+    color: #b3b3b3 !important;
+}
+
+.dashboard-theme .border-border {
+    border-color: #383838 !important;
+}
+
+.dashboard-theme .bg-accent {
+    background-color: #383838 !important;
+}
+
+.dashboard-theme .text-accent-foreground {
+    color: #f2f2f2 !important;
+}
+
+.dashboard-theme .bg-secondary {
+    background-color: #2e2e2e !important;
+}
+
+.dashboard-theme .text-secondary-foreground {
+    color: #f2f2f2 !important;
+}
+
+.dashboard-theme .bg-popover {
+    background-color: #1e1e1e !important;
+}
+
+.dashboard-theme .text-popover-foreground {
+    color: #f2f2f2 !important;
+}
+
+.dashboard-theme .ring-ring {
+    --tw-ring-color: #d9d9d9 !important;
+}
+
+/* Force color overrides for common elements in dashboard - LIGHT MODE */
+.dashboard-theme.light-mode .bg-background {
+    background-color: #fafafa !important;
+}
+
+.dashboard-theme.light-mode .text-foreground {
+    color: #333333 !important;
+}
+
+.dashboard-theme.light-mode .bg-card {
+    background-color: #ffffff !important;
+}
+
+.dashboard-theme.light-mode .text-card-foreground {
+    color: #333333 !important;
+}
+
+.dashboard-theme.light-mode .bg-primary {
+    background-color: #404040 !important;
+}
+
+.dashboard-theme.light-mode .text-primary {
+    color: #404040 !important;
+}
+
+.dashboard-theme.light-mode .text-primary-foreground {
+    color: #fafafa !important;
+}
+
+.dashboard-theme.light-mode .bg-muted {
+    background-color: #e0e0e0 !important;
+}
+
+.dashboard-theme.light-mode .text-muted-foreground {
+    color: #737373 !important;
+}
+
+.dashboard-theme.light-mode .border-border {
+    border-color: #d9d9d9 !important;
+}
+
+.dashboard-theme.light-mode .bg-accent {
+    background-color: #f0f0f0 !important;
+}
+
+.dashboard-theme.light-mode .text-accent-foreground {
+    color: #404040 !important;
+}
+
+.dashboard-theme.light-mode .bg-secondary {
+    background-color: #f0f0f0 !important;
+}
+
+.dashboard-theme.light-mode .text-secondary-foreground {
+    color: #404040 !important;
+}
+
+.dashboard-theme.light-mode .bg-popover {
+    background-color: #ffffff !important;
+}
+
+.dashboard-theme.light-mode .text-popover-foreground {
+    color: #333333 !important;
+}
+
+/* Cosmic gradient for dashboard */
+.dashboard-theme .cosmic-gradient {
+    background: linear-gradient(135deg, rgba(64, 64, 64, 0.2) 0%, rgba(32, 32, 32, 0.4) 100%);
+}
+
+.dashboard-theme.light-mode .cosmic-gradient {
+    background: linear-gradient(135deg, rgba(230, 230, 230, 0.8) 0%, rgba(200, 200, 200, 0.6) 100%);
+}
+
+/* Cosmic glow effect */
+.dashboard-theme .cosmic-glow {
+    box-shadow: 0 0 60px rgba(100, 100, 100, 0.1);
+}
+
+.dashboard-theme.light-mode .cosmic-glow {
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.05);
+}
+
+/* Cosmic grid pattern */
+.dashboard-theme .cosmic-grid {
+    background-image: 
+        linear-gradient(rgba(100, 100, 100, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100, 100, 100, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+/* Override Tailwind gradient colors for dashboard */
+.dashboard-theme .from-foreground {
+    --tw-gradient-from: #f2f2f2 !important;
+}
+
+.dashboard-theme .via-primary {
+    --tw-gradient-via: #d9d9d9 !important;
+}
+
+.dashboard-theme .to-foreground {
+    --tw-gradient-to: #f2f2f2 !important;
+}
+
+.dashboard-theme.light-mode .from-foreground {
+    --tw-gradient-from: #333333 !important;
+}
+
+.dashboard-theme.light-mode .via-primary {
+    --tw-gradient-via: #404040 !important;
+}
+
+.dashboard-theme.light-mode .to-foreground {
+    --tw-gradient-to: #333333 !important;
+}
+
+/* Override shadow colors */
+.dashboard-theme .shadow-primary\/30 {
+    --tw-shadow-color: rgba(217, 217, 217, 0.3) !important;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), 0 20px 25px -5px rgba(217, 217, 217, 0.3), 0 8px 10px -6px rgba(217, 217, 217, 0.3) !important;
+}
+
+.dashboard-theme .hover\:shadow-primary\/30:hover {
+    --tw-shadow-color: rgba(217, 217, 217, 0.3) !important;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), 0 20px 25px -5px rgba(217, 217, 217, 0.3), 0 8px 10px -6px rgba(217, 217, 217, 0.3) !important;
+}
+
+.dashboard-theme.light-mode .shadow-primary\/30 {
+    --tw-shadow-color: rgba(64, 64, 64, 0.3) !important;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), 0 20px 25px -5px rgba(64, 64, 64, 0.3), 0 8px 10px -6px rgba(64, 64, 64, 0.3) !important;
+}
+
+.dashboard-theme.light-mode .hover\:shadow-primary\/30:hover {
+    --tw-shadow-color: rgba(64, 64, 64, 0.3) !important;
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), 0 20px 25px -5px rgba(64, 64, 64, 0.3), 0 8px 10px -6px rgba(64, 64, 64, 0.3) !important;
+}
+
+/* Override border colors */
+.dashboard-theme .border-primary\/20 {
+    border-color: rgba(217, 217, 217, 0.2) !important;
+}
+
+.dashboard-theme.light-mode .border-primary\/20 {
+    border-color: rgba(64, 64, 64, 0.2) !important;
+}
+
+/* Override opacity variants of primary */
+.dashboard-theme .bg-primary\/10 {
+    background-color: rgba(217, 217, 217, 0.1) !important;
+}
+
+.dashboard-theme .bg-primary\/20 {
+    background-color: rgba(217, 217, 217, 0.2) !important;
+}
+
+.dashboard-theme.light-mode .bg-primary\/10 {
+    background-color: rgba(64, 64, 64, 0.1) !important;
+}
+
+.dashboard-theme.light-mode .bg-primary\/20 {
+    background-color: rgba(64, 64, 64, 0.2) !important;
+}
+
+/* Override hover states */
+.dashboard-theme .hover\:bg-primary\/10:hover {
+    background-color: rgba(217, 217, 217, 0.1) !important;
+}
+
+.dashboard-theme .hover\:border-primary:hover {
+    border-color: #d9d9d9 !important;
+}
+
+.dashboard-theme .hover\:text-primary:hover {
+    color: #d9d9d9 !important;
+}
+
+.dashboard-theme.light-mode .hover\:bg-primary\/10:hover {
+    background-color: rgba(64, 64, 64, 0.1) !important;
+}
+
+.dashboard-theme.light-mode .hover\:border-primary:hover {
+    border-color: #404040 !important;
+}
+
+.dashboard-theme.light-mode .hover\:text-primary:hover {
+    color: #404040 !important;
+}
+
+/* Override bg-primary/90 for button hover */
+.dashboard-theme .hover\:bg-primary\/90:hover {
+    background-color: rgba(217, 217, 217, 0.9) !important;
+}
+
+.dashboard-theme.light-mode .hover\:bg-primary\/90:hover {
+    background-color: rgba(64, 64, 64, 0.9) !important;
+}
+
+/* Override ALL green and cyan colors in dashboard theme */
+.dashboard-theme a {
+    color: #d9d9d9 !important;
+}
+
+.dashboard-theme a:hover {
+    color: #f2f2f2 !important;
+}
+
+.dashboard-theme.light-mode a {
+    color: #404040 !important;
+}
+
+.dashboard-theme.light-mode a:hover {
+    color: #333333 !important;
+}
+
+/* Force override any cyan/green text colors */
+.dashboard-theme [class*="text-cyan"],
+.dashboard-theme [class*="text-green"] {
+    color: #d9d9d9 !important;
+}
+
+.dashboard-theme.light-mode [class*="text-cyan"],
+.dashboard-theme.light-mode [class*="text-green"] {
+    color: #404040 !important;
+}
+
+/* Force override any cyan/green background colors */
+.dashboard-theme [class*="bg-cyan"],
+.dashboard-theme [class*="bg-green"] {
+    background-color: #383838 !important;
+}
+
+.dashboard-theme.light-mode [class*="bg-cyan"],
+.dashboard-theme.light-mode [class*="bg-green"] {
+    background-color: #e0e0e0 !important;
+}
+
+/* Override hover background for feature cards - use attribute selector */
+.dashboard-theme [class*="hover:bg-green"]:hover,
+.dashboard-theme [class*="hover:bg-cyan"]:hover {
+    background-color: rgba(217, 217, 217, 0.1) !important;
+}
+
+.dashboard-theme.light-mode [class*="hover:bg-green"]:hover,
+.dashboard-theme.light-mode [class*="hover:bg-cyan"]:hover {
+    background-color: rgba(64, 64, 64, 0.1) !important;
+}
+
+/* Override ring colors */
+.dashboard-theme [class*="ring-cyan"],
+.dashboard-theme [class*="ring-green"] {
+    --tw-ring-color: #d9d9d9 !important;
+}
+
+.dashboard-theme.light-mode [class*="ring-cyan"],
+.dashboard-theme.light-mode [class*="ring-green"] {
+    --tw-ring-color: #404040 !important;
+}
+
+/* Font utility class */
+.font-inter {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
