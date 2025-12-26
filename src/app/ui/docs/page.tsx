@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Header from '@/components/ui-landing/Header';
 import Footer from '@/components/ui-landing/Footer';
-import { BookOpen, Terminal, Monitor, Eye, GitCompare, Search, ChevronRight, Server, Keyboard, Zap, Settings, Bell, HelpCircle } from 'lucide-react';
+import { BookOpen, Terminal, Monitor, Eye, GitCompare, Search, ChevronRight, Server, Keyboard, Zap, Settings, HelpCircle, Sparkles, Github, Play } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 
@@ -15,7 +15,9 @@ const docSections = [
     icon: Zap,
     items: [
       { id: 'introduction', title: 'Introduction', href: '#introduction' },
+      { id: 'demo-video', title: 'Demo Video', href: '#demo-video' },
       { id: 'quick-start', title: 'Quick Start Guide', href: '#quick-start' },
+      { id: 'deployment', title: 'Deployment', href: '#deployment' },
       { id: 'modes', title: 'UI vs Terminal Mode', href: '#modes' },
     ]
   },
@@ -46,9 +48,18 @@ const docSections = [
     title: 'Features',
     icon: Settings,
     items: [
+      { id: 'ai-assistant', title: 'AI Assistant', href: '#ai-assistant' },
       { id: 'real-time-monitoring', title: 'Real-time Monitoring', href: '#real-time-monitoring' },
       { id: 'node-details', title: 'Node Details', href: '#node-details' },
-      { id: 'alerts', title: 'Alerts & Notifications', href: '#alerts' },
+    ]
+  },
+  {
+    id: 'contribute',
+    title: 'Contribute',
+    icon: Github,
+    items: [
+      { id: 'github', title: 'GitHub Repository', href: '#github' },
+      { id: 'community', title: 'Community', href: '#community' },
     ]
   },
 ];
@@ -141,6 +152,10 @@ export default function DocsPage() {
                     <ul className="space-y-2 text-muted-foreground">
                       <li className="flex items-start gap-2">
                         <ChevronRight size={16} className="text-primary mt-1 flex-shrink-0" />
+                        <span><strong>AI-Powered Assistant</strong> - Natural language queries with live pNode data context</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <ChevronRight size={16} className="text-primary mt-1 flex-shrink-0" />
                         <span>Real-time pNode monitoring with live status updates</span>
                       </li>
                       <li className="flex items-start gap-2">
@@ -161,6 +176,37 @@ export default function DocsPage() {
                       </li>
                     </ul>
                   </div>
+                </div>
+              </section>
+
+              {/* Demo Video */}
+              <section id="demo-video" className="mb-16">
+                <h2 className="text-2xl font-medium tracking-tighter mb-4 flex items-center gap-2">
+                  <Play size={24} className="text-primary" />
+                  Demo Video
+                </h2>
+                <p className="text-muted-foreground mb-6">
+                  Watch a complete walkthrough of XanTerm&apos;s features and capabilities.
+                </p>
+                <div className="relative w-full overflow-hidden rounded-xl border border-border bg-black" style={{ paddingBottom: '56.25%' }}>
+                  <iframe
+                    className="absolute top-0 left-0 w-full h-full"
+                    src="https://www.youtube.com/embed/5Ku7AHfIaYI"
+                    title="XanTerm Demo Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+                <div className="mt-4 flex justify-center">
+                  <a
+                    href="https://youtu.be/5Ku7AHfIaYI"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-primary hover:underline"
+                  >
+                    <Play size={16} />
+                    Watch on YouTube
+                  </a>
                 </div>
               </section>
 
@@ -211,6 +257,80 @@ export default function DocsPage() {
                       latency, storage usage, and performance scores.
                     </p>
                   </div>
+                </div>
+              </section>
+
+              {/* Deployment */}
+              <section id="deployment" className="mb-16">
+                <h2 className="text-2xl font-medium tracking-tighter mb-4">Deployment</h2>
+                <p className="text-muted-foreground mb-6">
+                  Deploy XanTerm to your own infrastructure or use a cloud platform like Vercel.
+                </p>
+
+                {/* Local Development */}
+                <div className="bg-card border border-border rounded-xl p-6 mb-6">
+                  <h4 className="font-medium text-foreground mb-4">Local Development</h4>
+                  <div className="bg-[#141414] rounded-lg p-4 font-mono text-sm text-[#d9d9d9] space-y-2 overflow-x-auto">
+                    <p><span className="text-[#a0a0a0]"># Clone the repository</span></p>
+                    <p>git clone https://github.com/Olaboye2000/xanterm.git</p>
+                    <p>cd XanTerm</p>
+                    <p className="mt-3"><span className="text-[#a0a0a0]"># Install dependencies</span></p>
+                    <p>npm install</p>
+                    <p className="mt-3"><span className="text-[#a0a0a0]"># Set up environment variables</span></p>
+                    <p>cp .env.example .env</p>
+                    <p className="mt-3"><span className="text-[#a0a0a0]"># Start development server</span></p>
+                    <p>npm run dev</p>
+                  </div>
+                  <p className="text-muted-foreground text-sm mt-4">
+                    Open <code className="px-1.5 py-0.5 bg-muted rounded">http://localhost:3000</code> for Terminal Mode
+                    or <code className="px-1.5 py-0.5 bg-muted rounded">http://localhost:3000/ui</code> for UI Dashboard.
+                  </p>
+                </div>
+
+                {/* Environment Variables */}
+                <div className="bg-card border border-border rounded-xl p-6 mb-6">
+                  <h4 className="font-medium text-foreground mb-4">Environment Variables</h4>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b border-border">
+                          <th className="text-left py-2 pr-4 text-muted-foreground font-medium">Variable</th>
+                          <th className="text-left py-2 pr-4 text-muted-foreground font-medium">Description</th>
+                          <th className="text-left py-2 text-muted-foreground font-medium">Required</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className="py-2 pr-4"><code className="px-1.5 py-0.5 bg-muted rounded text-xs">OPENAI_API_KEY</code></td>
+                          <td className="py-2 pr-4 text-muted-foreground">OpenAI API key for AI assistant</td>
+                          <td className="py-2 text-muted-foreground">Yes (for AI features)</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Vercel Deployment */}
+                <div className="bg-primary/5 border border-primary/20 rounded-xl p-6">
+                  <h4 className="font-medium text-foreground mb-3">Deploy to Vercel (Recommended)</h4>
+                  <ol className="space-y-2 text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <span className="font-medium text-primary">1.</span>
+                      Push your code to GitHub
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="font-medium text-primary">2.</span>
+                      Import the repository in <a href="https://vercel.com/new" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Vercel</a>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="font-medium text-primary">3.</span>
+                      Add <code className="px-1.5 py-0.5 bg-muted rounded text-xs">OPENAI_API_KEY</code> to environment variables
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="font-medium text-primary">4.</span>
+                      Deploy and your platform is live!
+                    </li>
+                  </ol>
                 </div>
               </section>
 
@@ -436,6 +556,76 @@ export default function DocsPage() {
             </div>
               </section>
 
+              {/* AI Assistant */}
+              <section id="ai-assistant" className="mb-16">
+                <h2 className="text-2xl font-medium tracking-tighter mb-4 flex items-center gap-2">
+                  <Sparkles size={24} className="text-primary" />
+                  AI Assistant
+                </h2>
+                <p className="text-muted-foreground mb-6">
+                  XanTerm features an AI-powered assistant that understands your pNode data in real-time.
+                  Ask questions in natural language and get instant insights about the network.
+                </p>
+
+                <div className="grid md:grid-cols-2 gap-6 mb-6">
+                  <div className="bg-card border border-border rounded-xl p-6">
+                    <h4 className="font-medium text-foreground mb-3">How to Access</h4>
+                    <ol className="space-y-2 text-muted-foreground">
+                      <li className="flex items-start gap-2">
+                        <span className="font-medium text-primary">1.</span>
+                        Click the sparkle button in the bottom-right corner of any page
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="font-medium text-primary">2.</span>
+                        Type your question in natural language
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="font-medium text-primary">3.</span>
+                        Get AI-powered insights with live pNode data context
+                      </li>
+                    </ol>
+                  </div>
+
+                  <div className="bg-card border border-border rounded-xl p-6">
+                    <h4 className="font-medium text-foreground mb-3">What You Can Ask</h4>
+                    <ul className="space-y-2 text-muted-foreground">
+                      <li className="flex items-center gap-2">
+                        <ChevronRight size={14} className="text-primary" />
+                        &quot;What&apos;s the network health?&quot;
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <ChevronRight size={14} className="text-primary" />
+                        &quot;Show me the top performing nodes&quot;
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <ChevronRight size={14} className="text-primary" />
+                        &quot;Are there any offline nodes?&quot;
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <ChevronRight size={14} className="text-primary" />
+                        &quot;Explain what performance score means&quot;
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="bg-primary/5 border border-primary/20 rounded-xl p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Sparkles size={20} className="text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-foreground mb-2">Powered by Live Data</h4>
+                      <p className="text-muted-foreground text-sm">
+                        The AI assistant has access to real-time pNode data including network status,
+                        node performance scores, uptime percentages, version distribution, and more.
+                        It can provide specific insights based on current network conditions.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
               {/* Terminal Overview */}
               <section id="terminal-overview" className="mb-16">
                 <h2 className="text-2xl font-medium tracking-tighter mb-4 flex items-center gap-2">
@@ -446,14 +636,14 @@ export default function DocsPage() {
                   Terminal Mode provides a classic command-line interface with ASCII art styling. 
                   It&apos;s designed for power users who prefer keyboard navigation and a retro aesthetic.
                 </p>
-                <div className="bg-[#0a0a0a] border border-green-900/50 rounded-xl p-6 font-mono text-sm">
-                  <div className="text-green-500">
+                <div className="bg-[#141414] border border-[#383838] rounded-xl p-6 font-mono text-sm">
+                  <div className="text-[#d9d9d9]">
                     <p>╔══════════════════════════════════════════╗</p>
                     <p>║  XanTerm v1.0 - Xandeum pNode Terminal   ║</p>
                     <p>╚══════════════════════════════════════════╝</p>
-                    <p className="mt-2 text-green-400">&gt; Connecting to Xandeum network...</p>
-                    <p className="text-green-400">&gt; Status: ONLINE</p>
-                    <p className="text-green-400">&gt; Ready for commands</p>
+                    <p className="mt-2 text-[#a0a0a0]">&gt; Connecting to Xandeum network...</p>
+                    <p className="text-[#a0a0a0]">&gt; Status: ONLINE</p>
+                    <p className="text-[#a0a0a0]">&gt; Ready for commands</p>
                     <p className="mt-2"><span className="animate-pulse">█</span></p>
                   </div>
                 </div>
@@ -540,38 +730,87 @@ export default function DocsPage() {
                 </div>
               </section>
 
-              {/* Need Help */}
-              <section id="help" className="mb-16">
+              {/* GitHub & Contribute */}
+              <section id="github" className="mb-16">
+                <h2 className="text-2xl font-medium tracking-tighter mb-4 flex items-center gap-2">
+                  <Github size={24} className="text-primary" />
+                  Contribute to XanTerm
+                </h2>
+                <p className="text-muted-foreground mb-6">
+                  XanTerm is open source! We welcome contributions from the community.
+                </p>
+
+                <div className="bg-card border border-border rounded-xl p-6 mb-6">
+                  <div className="flex items-start gap-4">
+                    <div className="h-12 w-12 rounded-xl bg-[#24292e] flex items-center justify-center flex-shrink-0">
+                      <Github size={24} className="text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-medium text-foreground mb-1">GitHub Repository</h4>
+                      <p className="text-muted-foreground text-sm mb-3">
+                        Star the repo, report issues, or submit pull requests to help improve XanTerm.
+                      </p>
+                      <a
+                        href="https://github.com/Olaboye2000/xanterm"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                      >
+                        <Github size={16} />
+                        View on GitHub
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="bg-card border border-border rounded-xl p-5">
+                    <h4 className="font-medium text-foreground mb-2">Report Issues</h4>
+                    <p className="text-muted-foreground text-sm">
+                      Found a bug or have a feature request? Open an issue on GitHub.
+                    </p>
+                  </div>
+                  <div className="bg-card border border-border rounded-xl p-5">
+                    <h4 className="font-medium text-foreground mb-2">Pull Requests</h4>
+                    <p className="text-muted-foreground text-sm">
+                      Want to contribute code? Fork the repo and submit a pull request.
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Community */}
+              <section id="community" className="mb-16">
                 <div className="bg-primary/5 border border-primary/20 rounded-xl p-8 text-center">
                   <HelpCircle size={40} className="text-primary mx-auto mb-4" />
-                  <h3 className="text-xl font-medium text-foreground mb-2">Need More Help?</h3>
+                  <h3 className="text-xl font-medium text-foreground mb-2">Join the Community</h3>
                   <p className="text-muted-foreground mb-6">
-                    Can&apos;t find what you&apos;re looking for? Reach out to the Xandeum community for support.
+                    Connect with the Xandeum community for support, updates, and discussions.
                   </p>
                   <div className="flex justify-center gap-4 flex-wrap">
-                    <a 
-                      href="https://github.com/Pavilion-devs/XanTerm" 
-              target="_blank" 
-              rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg text-foreground hover:bg-muted transition-colors"
+                    <a
+                      href="https://discord.gg/xandeum"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-[#5865F2] text-white rounded-lg font-medium hover:bg-[#4752c4] transition-colors"
                     >
-                      GitHub
-            </a>
-            <a 
-                      href="https://x.com/xandeum" 
-              target="_blank" 
-              rel="noopener noreferrer"
+                      Discord
+                    </a>
+                    <a
+                      href="https://x.com/xandeum"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg text-foreground hover:bg-muted transition-colors"
                     >
                       Twitter/X
-            </a>
-            <a 
-                      href="https://community.xandeum.network" 
-              target="_blank" 
-              rel="noopener noreferrer"
+                    </a>
+                    <a
+                      href="https://xandeum.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg text-foreground hover:bg-muted transition-colors"
                     >
-                      Community
+                      Website
                     </a>
                   </div>
                 </div>

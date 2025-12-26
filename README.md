@@ -15,6 +15,14 @@
 
 ---
 
+## Demo Video
+
+[![XanTerm Demo](https://img.youtube.com/vi/5Ku7AHfIaYI/maxresdefault.jpg)](https://youtu.be/5Ku7AHfIaYI)
+
+▶️ **[Watch the full demo on YouTube](https://youtu.be/5Ku7AHfIaYI)**
+
+---
+
 ## Overview
 
 XanTerm is a dual-mode analytics platform for monitoring Xandeum pNodes (storage provider nodes). Choose between a **Terminal Mode** with CLI aesthetics and keyboard-driven navigation, or a **Modern UI Dashboard** with a clean, intuitive interface. Both modes feature an **AI-powered assistant** that understands your pNode data in real-time.
@@ -81,8 +89,8 @@ XanTerm is a dual-mode analytics platform for monitoring Xandeum pNodes (storage
 
 ```bash
 # Clone the repository
-git clone https://github.com/Pavilion-devs/XanTerm.git
-cd XanTerm
+git clone https://github.com/Olaboye2000/xanterm.git
+cd xanterm
 
 # Install dependencies
 npm install
@@ -191,9 +199,10 @@ Built for the **Xandeum pNode Analytics Hackathon**.
 ## Links
 
 - [Live Demo](https://xanterm.vercel.app)
+- [Demo Video](https://youtu.be/5Ku7AHfIaYI)
+- [GitHub Repository](https://github.com/Olaboye2000/xanterm)
 - [Xandeum Website](https://xandeum.network)
 - [Xandeum Discord](https://discord.gg/uqRSmmM5m)
-- [GitHub Repository](https://github.com/Pavilion-devs/XanTerm)
 
 ---
 
