@@ -1,4 +1,4 @@
-# XanTerm - Terminal-Style pNode Analytics
+# XanTerm - Dual-Mode pNode Analytics Platform
 
 ```
 ██╗  ██╗ █████╗ ███╗   ██╗████████╗███████╗██████╗ ███╗   ███╗
@@ -9,36 +9,48 @@
 ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝
 ```
 
-> Monitor Xandeum pNodes like a hacker
+> Two interfaces. One powerful analytics platform.
 
-**Live Demo:** https://xanterm.vercel.app
+**Live Demo:** [xanterm.vercel.app](https://xanterm.vercel.app)
 
 ---
 
 ## Overview
 
-XanTerm is a terminal-style analytics platform for monitoring Xandeum pNodes (storage provider nodes). Featuring a retro CLI aesthetic with green-on-black terminal visuals, command-bar navigation, and keyboard shortcuts.
+XanTerm is a dual-mode analytics platform for monitoring Xandeum pNodes (storage provider nodes). Choose between a **Terminal Mode** with CLI aesthetics and keyboard-driven navigation, or a **Modern UI Dashboard** with a clean, intuitive interface. Both modes feature an **AI-powered assistant** that understands your pNode data in real-time.
 
 ---
 
-## Features
+## Key Features
 
-### Terminal Experience
-- **Retro CLI Aesthetic** - Matrix-style green on black theme
-- **Command Bar** - Type commands like `list`, `node <pubkey>`, `status`
-- **Keyboard Navigation** - Full keyboard support with vim-style bindings
-- **ASCII Art** - Terminal-style progress bars, tables, and decorations
+### Dual Interface Modes
 
-### Core Features
-- **Network Status** - Real-time overview of network health
-- **pNode Explorer** - Browse all nodes with filtering and search
-- **Node Details** - Deep dive into individual node metrics
-- **Watchlist** - Track your favorite pNodes
-- **Compare Tool** - Side-by-side node comparison
+| Terminal Mode | UI Dashboard |
+|---------------|--------------|
+| CLI-style aesthetic | Modern, clean design |
+| Command bar navigation | Point-and-click interface |
+| Keyboard shortcuts (vim-style) | Responsive components |
+| Monospace typography | Sans-serif typography |
+| Charcoal/gray theme | Light/dark mode toggle |
+
+### AI-Powered Analytics Assistant
+
+- **Context-aware AI** - Understands live pNode data in real-time
+- **Natural language queries** - Ask questions like "What's the network health?" or "Show top performers"
+- **Instant insights** - Get summaries, explanations, and recommendations
+- **Floating chat panel** - Available on every page in both modes
+
+### Core Analytics
+
+- **Network Status** - Real-time overview of network health and metrics
+- **pNode Explorer** - Browse, filter, search, and sort all nodes
+- **Node Details** - Deep dive into individual node performance
+- **Watchlist** - Track and monitor your favorite pNodes
+- **Compare Tool** - Side-by-side node comparison (up to 5 nodes)
 
 ---
 
-## Commands
+## Terminal Mode Commands
 
 | Command | Alias | Description |
 |---------|-------|-------------|
@@ -51,9 +63,7 @@ XanTerm is a terminal-style analytics platform for monitoring Xandeum pNodes (st
 | `help` | `?` | Show help |
 | `clear` | `cls` | Clear terminal |
 
----
-
-## Keyboard Shortcuts
+### Keyboard Shortcuts
 
 | Key | Action |
 |-----|--------|
@@ -77,11 +87,15 @@ cd XanTerm
 # Install dependencies
 npm install
 
+# Set up environment variables
+cp .env.example .env
+# Add your OPENAI_API_KEY for AI features
+
 # Start development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000) for Terminal Mode or [http://localhost:3000/ui](http://localhost:3000/ui) for UI Dashboard.
 
 ---
 
@@ -89,10 +103,12 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 | Category | Technology |
 |----------|------------|
-| Framework | Next.js 15 (App Router) + React 19 |
+| Framework | Next.js 16 (App Router) + React 19 |
 | Styling | Tailwind CSS 4 |
-| Font | JetBrains Mono |
+| UI Components | shadcn/ui + Radix UI |
+| Fonts | JetBrains Mono (Terminal) / Inter (UI) |
 | Data Fetching | TanStack React Query |
+| AI Integration | OpenAI GPT-4o-mini |
 | Language | TypeScript |
 
 ---
@@ -102,22 +118,38 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ```
 src/
 ├── app/
-│   ├── page.tsx          # Network status (home)
-│   ├── nodes/            # pNode list & details
-│   ├── watch/            # Watchlist
-│   ├── compare/          # Node comparison
-│   └── help/             # Help/commands
+│   ├── (terminal)/       # Terminal mode routes
+│   │   ├── page.tsx      # Network status
+│   │   ├── nodes/        # pNode list & details
+│   │   ├── watch/        # Watchlist
+│   │   ├── compare/      # Node comparison
+│   │   └── help/         # Help/commands
+│   ├── ui/               # UI dashboard routes
+│   │   ├── page.tsx      # Dashboard home
+│   │   ├── nodes/        # Node explorer
+│   │   ├── watch/        # Watchlist
+│   │   ├── compare/      # Comparison tool
+│   │   └── docs/         # Documentation
+│   └── api/
+│       ├── chat/         # AI chat endpoint
+│       └── prpc/         # pNode RPC proxy
 ├── components/
 │   ├── terminal/         # Terminal UI components
-│   │   ├── terminal-layout.tsx
-│   │   ├── command-bar.tsx
-│   │   ├── ascii-box.tsx
-│   │   └── ascii-table.tsx
-│   └── ...
+│   ├── dashboard/        # Dashboard components
+│   ├── ui/               # shadcn/ui components
+│   └── ai-chat/          # AI assistant components
 ├── hooks/                # Data fetching hooks
 ├── services/             # API services
 └── lib/                  # Utilities
 ```
+
+---
+
+## Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `OPENAI_API_KEY` | OpenAI API key for AI assistant | Yes (for AI features) |
 
 ---
 
@@ -127,9 +159,8 @@ src/
 
 1. Push to GitHub
 2. Import in [Vercel](https://vercel.com/new)
-3. Deploy!
-
-No environment variables required.
+3. Add `OPENAI_API_KEY` to environment variables
+4. Deploy!
 
 ---
 
@@ -141,23 +172,25 @@ Built for the **Xandeum pNode Analytics Hackathon**.
 
 | Requirement | Status |
 |-------------|--------|
-| Web-based analytics platform | Yes |
-| Retrieve pNodes via pRPC | Yes |
-| Display pNode information | Yes |
-| Live, functional website | Yes |
-| Documentation provided | Yes |
+| Web-based analytics platform | ✅ |
+| Retrieve pNodes via pRPC | ✅ |
+| Display pNode information | ✅ |
+| Live, functional website | ✅ |
+| Documentation provided | ✅ |
 
-### Innovation
+### Innovation Highlights
 
-- Unique terminal/CLI aesthetic
-- Command-driven navigation
-- Keyboard-first design
-- Retro hacker vibes
+- **Dual-mode interface** - Terminal CLI + Modern Dashboard
+- **AI-powered assistant** - Natural language analytics queries
+- **Real-time data context** - AI understands live pNode metrics
+- **Keyboard-first design** - Full vim-style navigation
+- **Mode switching** - Seamlessly switch between interfaces
 
 ---
 
 ## Links
 
+- [Live Demo](https://xanterm.vercel.app)
 - [Xandeum Website](https://xandeum.network)
 - [Xandeum Discord](https://discord.gg/uqRSmmM5m)
 - [GitHub Repository](https://github.com/Pavilion-devs/XanTerm)
@@ -171,5 +204,5 @@ MIT License - Built for the Xandeum ecosystem
 ---
 
 <p align="center">
-  <code>$ exit</code>
+  <code>$ xanterm --help</code>
 </p>

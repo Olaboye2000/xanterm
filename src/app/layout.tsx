@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { AppProviders } from '@/components/app-providers'
+import { AIChatButton } from '@/components/ai-chat'
 import React from 'react'
 
 export const metadata: Metadata = {
@@ -14,6 +15,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="antialiased">
         <AppProviders>
           {children}
+          <AIChatButton />
         </AppProviders>
       </body>
     </html>

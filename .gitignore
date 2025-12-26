@@ -85,6 +85,9 @@ lerna-debug.log*
 # Website folder (old template, now integrated into app/ui)
 /website/
 
+# Screenshots folder
+/screenshots/
+
 # Temporary files
 *.tmp
 *.temp
